@@ -6,9 +6,13 @@
 import scrapy
 from scrapy.loader.processors import MapCompose, TakeFirst
 
-
-def extract_country_name(value):
-    return "".join(value).strip()
+from .utils import (
+    extract_courts_product_curr_price,
+    extract_courts_product_old_price,
+    extract_courts_product_price_currency,
+    process_country_name,
+    process_courts_product_name,
+)
 
 
 class QuotesTutorialItem(scrapy.Item):
@@ -19,11 +23,27 @@ class QuotesTutorialItem(scrapy.Item):
 
 class CountryItem(scrapy.Item):
     name = scrapy.Field(
-        input_processor=MapCompose(extract_country_name), output_processor=TakeFirst()
+        input_processor=MapCompose(process_country_name), output_processor=TakeFirst()
     )
     capital = scrapy.Field(output_processor=TakeFirst())
     population = scrapy.Field(output_processor=TakeFirst())
     area = scrapy.Field(output_processor=TakeFirst())
+
+
+class CourtsItem(scrapy.Item):
+    name = scrapy.Field(
+        input_processor=MapCompose(process_courts_product_name), output_processor=TakeFirst()
+    )
+    curr_price = scrapy.Field(
+        input_processor=MapCompose(extract_courts_product_curr_price), output_processor=TakeFirst()
+    )
+    old_price = scrapy.Field(
+        input_processor=MapCompose(extract_courts_product_old_price), output_processor=TakeFirst()
+    )
+    currency = scrapy.Field(
+        input_processor=MapCompose(extract_courts_product_price_currency),
+        output_processor=TakeFirst(),
+    )
 
 
 class OscarWinningFilmItem(scrapy.Item):

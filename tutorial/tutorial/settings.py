@@ -15,10 +15,33 @@ NEWSPIDER_MODULE = "tutorial.spiders"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'tutorial (+http://www.yourdomain.com)'
-# USER_AGENT = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+# USER_AGENT = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+
+# DOWNLOADER_MIDDLEWARES = {
+#     "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware": None,
+#     "scrapy_user_agents.middlewares.RandomUserAgentMiddleware": 400,
+# }
+
+# Proxy
+# PROXY_POOL_ENABLED = True
+# DOWNLOADER_MIDDLEWARES = {
+#     # ...
+#     "scrapy_proxy_pool.middlewares.ProxyPoolMiddleware": 610,
+#     "scrapy_proxy_pool.middlewares.BanDetectionMiddleware": 620,
+#     # ...
+# }
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
+
+# Playwright Settings
+DOWNLOAD_HANDLERS = {
+    "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+    "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+}
+TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
+PLAYWRIGHT_LAUNCH_OPTIONS = {"headless": False}
+DUPEFILTER_CLASS = "scrapy.dupefilters.BaseDupeFilter"
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 # CONCURRENT_REQUESTS = 32
@@ -54,16 +77,6 @@ ROBOTSTXT_OBEY = True
 # DOWNLOADER_MIDDLEWARES = {
 #    'tutorial.middlewares.TutorialDownloaderMiddleware': 543,
 # }
-DOWNLOAD_HANDLERS = {
-    "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
-    "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
-}
-
-TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
-
-PLAYWRIGHT_LAUNCH_OPTIONS = {"headless": False}
-
-DUPEFILTER_CLASS = "scrapy.dupefilters.BaseDupeFilter"
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html

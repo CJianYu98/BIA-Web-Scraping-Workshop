@@ -6,7 +6,7 @@ from ..items import OscarWinningFilmItem
 
 # Oscar Winning film scrape records for year 2015
 class PWSpider(scrapy.Spider):
-    name = "pw_lab1"
+    name = "lab2_v1"
 
     def start_requests(self):
         url = "https://www.scrapethissite.com/pages/ajax-javascript/"

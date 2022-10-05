@@ -6,7 +6,7 @@ from scrapy_playwright.page import PageMethod
 from ..utils import should_abort_request
 
 
-# Improving Scrapy performance by setting custom settings, abort unnecessary requests
+# Improving Scrapy performance by setting custom settings, abort unnecessary requests, on Lazada website
 class LazadaSpider(scrapy.Spider):
     name = "pw_lazada"
     page_number = 1
