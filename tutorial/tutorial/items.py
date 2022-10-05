@@ -4,13 +4,26 @@
 # https://docs.scrapy.org/en/latest/topics/items.html
 
 import scrapy
+from scrapy.loader.processors import MapCompose, TakeFirst
+
+
+def extract_country_name(value):
+    return "".join(value).strip()
 
 
 class QuotesTutorialItem(scrapy.Item):
-    # define the fields for your item here like:
     title = scrapy.Field()
     author = scrapy.Field()
     tag = scrapy.Field()
+
+
+class CountryItem(scrapy.Item):
+    name = scrapy.Field(
+        input_processor=MapCompose(extract_country_name), output_processor=TakeFirst()
+    )
+    capital = scrapy.Field(output_processor=TakeFirst())
+    population = scrapy.Field(output_processor=TakeFirst())
+    area = scrapy.Field(output_processor=TakeFirst())
 
 
 class OscarWinningFilmItem(scrapy.Item):
