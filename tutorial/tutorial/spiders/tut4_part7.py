@@ -55,6 +55,6 @@ class LazadaSpider(scrapy.Spider):
 
     def parse_product(self, response):
         yield {
-            "Product": response.css(".pdp-mod-product-badge-title ::Text").get(),
-            "Price": response.css(".pdp-price_color_orange ::Text").get(),
+            "Product": response.css(".pdp-mod-product-badge-title::text").get(),
+            "Price": response.css(".pdp-price_color_orange::text").get(),
         }
