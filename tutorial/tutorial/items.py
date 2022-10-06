@@ -5,6 +5,8 @@
 
 import scrapy
 from scrapy.loader.processors import MapCompose, TakeFirst
+from w3lib.html import remove_tags
+from scrapy.loader import ItemLoader
 
 from .utils import (
     extract_courts_product_curr_price,
