@@ -2,7 +2,7 @@ import scrapy
 from scrapy.http import FormRequest
 from scrapy.utils.response import open_in_browser
 
-from ..items import QuoteItem
+from ..items import QuotesTutorialItem
 
 
 class QuoteSpider(scrapy.Spider):
@@ -23,7 +23,7 @@ class QuoteSpider(scrapy.Spider):
 
     def start_scraping(self, response):
         open_in_browser(response)
-        items = QuoteItem()
+        items = QuotesTutorialItem()
 
         all_div_quotes = response.css("div.quote")
 

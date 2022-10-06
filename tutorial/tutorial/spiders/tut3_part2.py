@@ -1,6 +1,6 @@
 import scrapy
 
-from ..items import QuoteItem
+from ..items import QuotesTutorialItem
 
 
 class QuotespiderSpider(scrapy.Spider):
@@ -8,7 +8,7 @@ class QuotespiderSpider(scrapy.Spider):
     start_urls = ["http://quotes.toscrape.com/"]
 
     def parse(self, response):
-        items = QuoteItem()
+        items = QuotesTutorialItem()
 
         all_div_quotes = response.css("div.quote")
 
