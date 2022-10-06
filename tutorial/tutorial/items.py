@@ -4,9 +4,9 @@
 # https://docs.scrapy.org/en/latest/topics/items.html
 
 import scrapy
+from scrapy.loader import ItemLoader
 from scrapy.loader.processors import MapCompose, TakeFirst
 from w3lib.html import remove_tags
-from scrapy.loader import ItemLoader
 
 from .utils import (
     extract_courts_product_curr_price,
@@ -14,21 +14,26 @@ from .utils import (
     extract_courts_product_price_currency,
     process_country_name,
     process_courts_product_name,
-    remove_currency
+    remove_currency,
 )
 
-
+# For Tutorial 2 Part 1
 class QuotesTutorialItem(scrapy.Item):
     title = scrapy.Field()
     author = scrapy.Field()
     tag = scrapy.Field()
 
-#Tut 2 part 3
+
+# For Tutorial 2 Part 2
 class BookItem(scrapy.Item):
     # define the fields for your item here like:
-    title = scrapy.Field(input_processor = MapCompose(remove_tags) , output_processor = TakeFirst())
-    price = scrapy.Field(input_processor = MapCompose(remove_tags,remove_currency) , output_processor = TakeFirst())
+    title = scrapy.Field(input_processor=MapCompose(remove_tags), output_processor=TakeFirst())
+    price = scrapy.Field(
+        input_processor=MapCompose(remove_tags, remove_currency), output_processor=TakeFirst()
+    )
 
+
+# For Lab 1
 class CountryItem(scrapy.Item):
     name = scrapy.Field(
         input_processor=MapCompose(process_country_name), output_processor=TakeFirst()
@@ -38,6 +43,7 @@ class CountryItem(scrapy.Item):
     area = scrapy.Field(output_processor=TakeFirst())
 
 
+# For Tutorial 3 Part 5
 class CourtsItem(scrapy.Item):
     name = scrapy.Field(
         input_processor=MapCompose(process_courts_product_name), output_processor=TakeFirst()
@@ -54,6 +60,7 @@ class CourtsItem(scrapy.Item):
     )
 
 
+# For Lab 2
 class OscarWinningFilmItem(scrapy.Item):
     year = scrapy.Field()
     title = scrapy.Field()

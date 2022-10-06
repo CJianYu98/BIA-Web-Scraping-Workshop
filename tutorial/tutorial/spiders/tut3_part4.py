@@ -1,26 +1,39 @@
 import scrapy
-from scrapy.loader import ItemLoader
+from scrapy.http import FormRequest
+from scrapy.utils.response import open_in_browser
 
-from ..items import CourtsItem
+from ..items import QuoteItem
 
 
-class CourtsSpider(scrapy.Spider):
-    name = "tut3_spider"
-
-    start_urls = ["https://www.courts.com.sg/computing-mobile/smart-phones/all-smart-phones"]
+class QuoteSpider(scrapy.Spider):
+    name = "quotes"
+    start_urls = ["http://quotes.toscrape.com/login"]
 
     def parse(self, response):
-        products = response.css(".equal-height-col .product-item")
+        token = response.css("form input::attr(value)").extract_first()
+        return FormRequest.from_response(
+            response,
+            formdata={
+                "csrf_token": token,
+                "username": "webscraping@gmail.com",
+                "password": "webscraping",
+            },
+            callback=self.start_scraping,
+        )
 
-        for product in products:
-            prices = product.css(".weee .price::text").getall()
-            curr_price = prices[0]
-            old_price = prices[1] if len(prices) == 2 else None
+    def start_scraping(self, response):
+        open_in_browser(response)
+        items = QuoteItem()
 
-            loader = ItemLoader(item=CourtsItem(), selector=product)
-            loader.add_css("name", ".onclick-item-link .product-item-name .product-item-link::text")
-            loader.add_value("curr_price", curr_price)
-            loader.add_value("old_price", old_price)
-            loader.add_value("currency", curr_price)
+        all_div_quotes = response.css("div.quote")
 
-            yield loader.load_item()
+        for quotes in all_div_quotes:
+            title = quotes.css("span.text::text").extract()
+            author = quotes.css(".author::text").extract()
+            tag = quotes.css(".tag::text").extract()
+
+            items["title"] = title
+            items["author"] = author
+            items["tag"] = tag
+
+            yield items
