@@ -2,7 +2,7 @@ import scrapy
 
 
 class QuotespiderSpider(scrapy.Spider):
-    name = "quotespider"
+    name = "quotespider3_1"
     start_urls = [
         "http://quotes.toscrape.com/",
         "https://quotes.toscrape.com/page/2/",
