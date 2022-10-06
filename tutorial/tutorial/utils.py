@@ -16,7 +16,8 @@ def extract_courts_product_curr_price(value):
 def extract_courts_product_old_price(value):
     return int(value.strip(".").strip("S$").replace(",", "")) if value else None
 
-
+def remove_currency(value) :
+    return value.replace("£","")
 
 def extract_courts_product_price_currency(value):
     if "S$" in value:
