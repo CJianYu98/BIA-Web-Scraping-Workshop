@@ -4,7 +4,7 @@ from ..items import QuoteItem
 
 
 class QuotespiderSpider(scrapy.Spider):
-    name = "quotes"
+    name = "quotespider3_2"
     start_urls = ["http://quotes.toscrape.com/"]
 
     def parse(self, response):
