@@ -12,6 +12,7 @@ from .utils import (
     extract_courts_product_price_currency,
     process_country_name,
     process_courts_product_name,
+    remove_currency
 )
 
 
