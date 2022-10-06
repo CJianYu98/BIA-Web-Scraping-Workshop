@@ -4,7 +4,7 @@ from ..items import BookItem
 
 
 class BookspiderSpider(scrapy.Spider):
-    name = "bookspider"
+    name = "bookspider2_1"
     start_urls = ["http://books.toscrape.com/"]
 
     def parse(self, response):
