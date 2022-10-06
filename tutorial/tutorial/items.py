@@ -20,6 +20,11 @@ class QuotesTutorialItem(scrapy.Item):
     author = scrapy.Field()
     tag = scrapy.Field()
 
+#Tut 2 part 3
+class BookItem(scrapy.Item):
+    # define the fields for your item here like:
+    title = scrapy.Field(input_processor = MapCompose(remove_tags) , output_processor = TakeFirst())
+    price = scrapy.Field(input_processor = MapCompose(remove_tags,remove_currency) , output_processor = TakeFirst())
 
 class CountryItem(scrapy.Item):
     name = scrapy.Field(
