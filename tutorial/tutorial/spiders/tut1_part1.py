@@ -14,6 +14,7 @@ class QuotespiderSpider(scrapy.Spider):
 
             tags_ls = quote.css("a.tag")
             tags = [tag.css("::text").get() for tag in tags_ls]
+            # tags = quote.css('meta.keywords').attrib['content']
 
             # Create a dictionary of information that we want our from one product
             yield {"title": title, "author": author, "tags": tags}
