@@ -1,26 +1,28 @@
 import scrapy
-from scrapy.loader import ItemLoader
-
-from ..items import CourtsItem
+from ..items import ImageItem
 
 
-class CourtsSpider(scrapy.Spider):
-    name = "tut3_spider"
-
-    start_urls = ["https://www.courts.com.sg/computing-mobile/smart-phones/all-smart-phones"]
+# Downloading all Images
+class ParisImagesSpider(scrapy.Spider):
+    name = "tut3_spider3_5"
+    start_urls = ["https://en.wikipedia.org/wiki/Paris"]
 
     def parse(self, response):
-        products = response.css(".equal-height-col .product-item")
+        raw_image_urls = response.css(".image img ::attr(src)").getall()
 
-        for product in products:
-            prices = product.css(".weee .price::text").getall()
-            curr_price = prices[0]
-            old_price = prices[1] if len(prices) == 2 else None
+        for img_url in raw_image_urls:
+            # Using Item Class
+            item = ImageItem()
+            # print(response.urljoin(img_url))
+            item["title"] = response.urljoin(img_url).split("/")[-1]
+            item["image_urls"] = [
+                response.urljoin(img_url)
+            ]  # Get the absolute url path, must be a List
 
-            loader = ItemLoader(item=CourtsItem(), selector=product)
-            loader.add_css("name", ".onclick-item-link .product-item-name .product-item-link::text")
-            loader.add_value("curr_price", curr_price)
-            loader.add_value("old_price", old_price)
-            loader.add_value("currency", curr_price)
+            yield item
 
-            yield loader.load_item()
+        #     # If we do not use Item Class
+        #     title = response.urljoin(img_url).split("/")[-1]
+        #     image_urls = [response.urljoin(img_url)]  # Get the absolute url path
+
+        #     yield {"title": title, "image_urls": image_urls}

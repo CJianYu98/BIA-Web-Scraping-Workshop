@@ -2,9 +2,9 @@ import scrapy
 
 from ..items import QuotesTutorialItem
 
-
+# Web crawling using next page href
 class QuotespiderSpider(scrapy.Spider):
-    name = "quotespider3_2"
+    name = "tut3_spider3_2"
     start_urls = ["http://quotes.toscrape.com/"]
 
     def parse(self, response):
@@ -13,9 +13,9 @@ class QuotespiderSpider(scrapy.Spider):
         all_div_quotes = response.css("div.quote")
 
         for quotes in all_div_quotes:
-            title = quotes.css("span.text::text").extract()
-            author = quotes.css(".author::text").extract()
-            tag = quotes.css(".tag::text").extract()
+            title = quotes.css("span.text::text").get()
+            author = quotes.css(".author::text").get()
+            tag = quotes.css(".tag::text").get()
 
             items["title"] = title
             items["author"] = author

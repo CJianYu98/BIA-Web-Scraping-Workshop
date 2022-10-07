@@ -6,6 +6,7 @@ from ..items import BookItem
 class BookspiderSpider(scrapy.Spider):
     name = "bookspider2_1"
     start_urls = ["http://books.toscrape.com/"]
+    # custom_settings = {"FEEDS": {"books.csv": {"format": "csv"}}}
 
     def parse(self, response):
         items = BookItem()

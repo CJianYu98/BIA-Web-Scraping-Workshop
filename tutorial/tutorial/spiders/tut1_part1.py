@@ -1,10 +1,12 @@
 from email.quoprimime import quote
+
 import scrapy
 
 
 class QuotespiderSpider(scrapy.Spider):
     name = "quotespider1_1"
     start_urls = ["http://quotes.toscrape.com/"]
+    # custom_settings = {"FEEDS": {"quotes.csv": {"format": "csv"}}}
 
     def parse(self, response):
         # quote_list = response.css("div.quote")

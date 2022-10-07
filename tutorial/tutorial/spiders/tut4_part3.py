@@ -17,7 +17,9 @@ class PWSpider(scrapy.Spider):
                 playwright_include_page=True,
                 playwright_page_methods=[
                     PageMethod("wait_for_selector", "div.quote"),
-                    PageMethod("evaluate", "window.scrollBy(0, document.body.scrollHeight)"),
+                    PageMethod(
+                        "evaluate", "window.scrollBy(0, document.body.scrollHeight)"
+                    ),  # scrolls the page relative to its current position. Scrolls down by the length of the page.
                     PageMethod(
                         "wait_for_selector", ".quote:nth-child(100)"
                     ),  # wait for the last quote to render

@@ -13,6 +13,27 @@ SPIDER_MODULES = ["tutorial.spiders"]
 NEWSPIDER_MODULE = "tutorial.spiders"
 
 
+# Obey robots.txt rules
+ROBOTSTXT_OBEY = True
+
+# Playwright Settings
+DOWNLOAD_HANDLERS = {
+    "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+    "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+}
+TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
+PLAYWRIGHT_LAUNCH_OPTIONS = {"headless": False}
+DUPEFILTER_CLASS = "scrapy.dupefilters.BaseDupeFilter"
+
+# Item Pipelines
+# ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
+# ITEM_PIPELINES = {"tutorial.pipelines.CustomWikiImagesPipeline": 1}
+# IMAGES_STORE = "paris_images"
+
+# Feed Settings
+# FEEDS = {"quotes.csv": {"format": "csv"}}
+
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'tutorial (+http://www.yourdomain.com)'
 # USER_AGENT = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
@@ -30,18 +51,6 @@ NEWSPIDER_MODULE = "tutorial.spiders"
 #     "scrapy_proxy_pool.middlewares.BanDetectionMiddleware": 620,
 #     # ...
 # }
-
-# Obey robots.txt rules
-ROBOTSTXT_OBEY = True
-
-# Playwright Settings
-DOWNLOAD_HANDLERS = {
-    "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
-    "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
-}
-TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
-PLAYWRIGHT_LAUNCH_OPTIONS = {"headless": False}
-DUPEFILTER_CLASS = "scrapy.dupefilters.BaseDupeFilter"
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 # CONCURRENT_REQUESTS = 32

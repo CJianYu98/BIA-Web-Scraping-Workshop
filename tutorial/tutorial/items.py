@@ -4,7 +4,7 @@
 # https://docs.scrapy.org/en/latest/topics/items.html
 
 import scrapy
-from scrapy.loader.processors import MapCompose, TakeFirst
+from itemloaders.processors import MapCompose, TakeFirst
 from w3lib.html import remove_tags
 
 from .utils import (
@@ -43,6 +43,13 @@ class CountryItem(scrapy.Item):
 
 
 # For Tutorial 3 Part 5
+class ImageItem(scrapy.Item):
+    title = scrapy.Field()
+    image_urls = scrapy.Field()
+    images = scrapy.Field()  # for scrapy to use, we do not need to fill this field
+
+
+# For Tutorial 3 Part 7
 class CourtsItem(scrapy.Item):
     name = scrapy.Field(
         input_processor=MapCompose(process_courts_product_name), output_processor=TakeFirst()

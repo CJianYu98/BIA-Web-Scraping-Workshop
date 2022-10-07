@@ -2,11 +2,11 @@ import scrapy
 
 from ..items import QuotesTutorialItem
 
-
+# Web crawling using pagination
 class QuotespiderSpider(scrapy.Spider):
-    name = "quotespider3_3"
+    name = "tut3_spider3_3"
     start_urls = ["http://quotes.toscrape.com/"]
-    page_number = 2
+    page_number = 1
 
     def parse(self, response):
         items = QuotesTutorialItem()
@@ -14,9 +14,9 @@ class QuotespiderSpider(scrapy.Spider):
         all_div_quotes = response.css("div.quote")
 
         for quotes in all_div_quotes:
-            title = quotes.css("span.text::text").extract()
-            author = quotes.css(".author::text").extract()
-            tag = quotes.css(".tag::text").extract()
+            title = quotes.css("span.text::text").get()
+            author = quotes.css(".author::text").get()
+            tag = quotes.css(".tag::text").get()
 
             items["title"] = title
             items["author"] = author
@@ -24,8 +24,8 @@ class QuotespiderSpider(scrapy.Spider):
 
             yield items
 
-        next_page = f"https://quotes.toscrape.com/page/{str(QuotespiderSpider.page_number)}/"
+        if self.page_number <= 10:
+            self.page_number += 1
+            next_page = f"https://quotes.toscrape.com/page/{self.page_number}/"
 
-        if QuotespiderSpider.page_number < 10:
-            QuotespiderSpider.page_number += 1
             yield response.follow(next_page, callback=self.parse)

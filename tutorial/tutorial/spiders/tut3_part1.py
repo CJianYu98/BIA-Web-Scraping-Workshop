@@ -1,10 +1,11 @@
 import scrapy
 
 
+# Multiple start urls
 class QuotespiderSpider(scrapy.Spider):
-    name = "quotespider3_1"
+    name = "tut3_spider3_1"
     start_urls = [
-        "http://quotes.toscrape.com/",
+        "http://quotes.toscrape.com/page/1/",
         "https://quotes.toscrape.com/page/2/",
         "https://quotes.toscrape.com/page/3/",
     ]
