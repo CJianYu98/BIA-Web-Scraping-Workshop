@@ -16,14 +16,14 @@ from .utils import (
     remove_currency,
 )
 
-# For Tutorial 2 Part 1
+# For Tutorial 1 Part 1
 class QuotesTutorialItem(scrapy.Item):
     title = scrapy.Field()
     author = scrapy.Field()
     tag = scrapy.Field()
 
 
-# For Tutorial 2 Part 2
+# For Tutorial 2 Part 1
 class BookItem(scrapy.Item):
     # define the fields for your item here like:
     title = scrapy.Field(input_processor=MapCompose(remove_tags), output_processor=TakeFirst())
