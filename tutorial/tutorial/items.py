@@ -16,6 +16,7 @@ from .utils import (
     remove_currency,
 )
 
+
 # For Tutorial 1 Part 1
 class QuotesTutorialItem(scrapy.Item):
     title = scrapy.Field()
@@ -57,8 +58,11 @@ class CourtsItem(scrapy.Item):
     curr_price = scrapy.Field(
         input_processor=MapCompose(extract_courts_product_curr_price), output_processor=TakeFirst()
     )
-    old_price = scrapy.Field(
-        input_processor=MapCompose(extract_courts_product_old_price), output_processor=TakeFirst()
+    old_price = (
+        scrapy.Field(
+            input_processor=MapCompose(extract_courts_product_old_price),
+            output_processor=TakeFirst(),
+        ),
     )
     currency = scrapy.Field(
         input_processor=MapCompose(extract_courts_product_price_currency),
